@@ -19,5 +19,5 @@ class Polynomial:
         return len(self.coeffs)
 
 
-p1: Polynomial = Polynomial(3, 4, 5)
-p2: Polynomial = Polynomial(1, 2, 3)
+p1 = Polynomial(3, 4, 5)
+p2 = Polynomial(1, 2, 3)
