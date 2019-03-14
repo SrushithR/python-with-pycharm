@@ -1,69 +1,39 @@
-# underscores.py
-# _
-# __
-# __func__
-# type hints
-
-class Student:
-    def __init__(self, stdn=None, roll_no: str = None, course=None, cgp=None, college_id=None):
-        self.stdn = stdn
-        self.roll_no = roll_no
-        self.course = course
-        self.__cgp = cgp
-        self._college_id = college_id
-
-    def _caluculate_cgp(self):
-        return self.__cgp * 100
-
-    def get_student_name(self):
-        return "Hello " + self.stdn + " has roll number" + self.roll_no
-
-    def __get_cgp(self) -> float:
-        return self.__cgp
-
-    def get_roll_no(self):
-        return self.roll_no
-
-    def get_cgp(self):
-        return "the cgp is: " + str(self.__get_cgp())
-
-
-s1 = Student("Srushith", "12345", "CS", 9.0)
-
+"""
+    Python code to understand the differences between _, __ and __  __
+    _var = used to indicate the programmer that the particular variable is an internal variable
+    __var = used for private variables
+    __method = used for private methods
+    __func__ = dunder methods. Most used by Python to call
+    var_ = Used by convention to avoid naming conflicts with Python keywords
+"""
 
 class Movie:
-    def __init__(self, movie_name=None, no_of_tickets=None, no_of_screens=None, movie_id=None, sales_amount=None):
+
+    def __init__(self, movie_name=None, max_tickets=None, screen_number: int = None, total_sales_amount=None):
         self.movie_name = movie_name
-        self.no_of_tickets = no_of_tickets
-        self.no_of_screens = no_of_screens
-        self.movie_id = movie_id
-        self._sales_amount = sales_amount
+        self.max_tickets = max_tickets
+        self._screen_number = screen_number
+        self.__total_sales_amount = total_sales_amount
+
+    def __repr__(self):
+        return "Movie name: {}, max tickets: {}, screen number: {}".format(self.movie_name, self.max_tickets,
+                                                                           self._screen_number)
 
     def get_movie_details(self):
-        return "amount: {} taxes: {} ticket_type: {}".format(self.movie_name, self.no_of_tickets, self.no_of_screens)
+        # string concatenation
+        # return "Movie name: " + self.movie_name + "max_tickets: " + self.max_tickets + "screen number: " + self._screen_number
+
+        # using format
+        # return "Movie name: {}, max tickets: {}, screen number: {}".format(self.movie_name, self.max_tickets, self._screen_number)
+
+        # using format strings (looks more elegant and easier to read)
+        return f"Movie name: {self.movie_name}, max tickets: {self.max_tickets}, screen number: {self._screen_number} and sales amount: {self.__total_sales_amount}"
+
+    def __get_profit(self):
+        profit = self.__total_sales_amount * 0.30
+        return profit
 
 
-movie1 = Movie("Avengers", 100, 500, "aveng3")
+m1 = Movie("avengers: eg", "200", 3, total_sales_amount=1000000)
 
-
-class Ticket(Movie):
-
-    def __init__(self, movie_name=None, no_of_tickets=None, no_of_screens=None, movie_id=None, ticket_type=None,
-                 ticket_name=None):
-        super().__init__(movie_name, no_of_tickets, no_of_screens, movie_id, _sales_amount)
-        self.ticket_name = ticket_name
-        self.ticket_type = ticket_type
-        self.sales_amount = _sales_amount
-
-    # def __init__(self, movie_name=None, no_of_tickets=None, no_of_screens=None, movie_id=None, ticket_type=None,
-    #              ticket_name=None, sales_amount=None):
-    #     super().__init__(movie_name, no_of_tickets, no_of_screens, movie_id, sales_amount=None)
-    #     self.ticket_type = ticket_type
-    #     self.ticket_name = ticket_name
-
-    def get_ticket_details(self):
-        return "ticket type: {}, ticket_name: {}, movie name: {}".format(self.ticket_type, self.ticket_name,
-                                                                         self.movie_name)
-#
-#
-# ticket = Ticket("bahubali", 100, 13, "bahu1", "upper class", "regular")
+m2 = Movie("captain marvel", 100, 2, 40000)
